@@ -1,0 +1,47 @@
+﻿@model LukashPortfolio.Models.ContactMessage
+@{
+    ViewData["Title"] = "Contact";
+}
+
+<div class="row mt-5 animate-slide-up">
+    <div class="col-md-6 mx-auto">
+        <div class="card shadow-sm border-0 rounded-3 p-4">
+            <h2 class="fw-bold text-center mb-4">Let's Connect</h2>
+
+            @if (ViewBag.SuccessMessage != null)
+            {
+                <div class="alert alert-success text-center">
+                    @ViewBag.SuccessMessage
+                </div>
+            }
+
+            <form method="post" asp-action="Contact">
+                @* CSRF Protection Token *@
+                @Html.AntiForgeryToken()
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Name</label>
+                    <input type="text" asp-for="Name" class="form-control" placeholder="Enter your name" />
+                    <span asp-validation-for="Name" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Email</label>
+                    <input type="email" asp-for="Email" class="form-control" placeholder="Enter your email" />
+                    <span asp-validation-for="Email" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Message</label>
+                    <textarea asp-for="Message" class="form-control" rows="4" placeholder="What's on your mind?"></textarea>
+                    <span asp-validation-for="Message" class="text-danger small"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 rounded-pill mt-2">Send Message</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Includes validation scripts directly so it doesn't crash layout rendering -->
+<partial name="_ValidationScriptsPartial" />
